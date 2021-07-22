@@ -1,10 +1,16 @@
   
 import React from "react"
-import { Link } from 'gatsby'
+import { Link, graphql} from 'gatsby'
 import Layout from "../components/Layout"
 import * as styles from '../styles/home.module.css'
+// import { StaticImage } from "gatsby-plugin-image"
+// import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-export default function Home() {
+export default function Home({data}) {
+  // const image = getImage(data.file)
+  // console.log(data.file)
+
+
   return (
     <Layout>
       <section className={styles.header}>
@@ -14,7 +20,21 @@ export default function Home() {
           <p>UX designer & web developer based in Manchester.</p>
           <Link  to="/projects">My Portfolio Projects</Link>
         </div>
+        
+        <img src="/banner.png" alt="site banner" style={{maxWidth:"100%"}}></img>
+
       </section>
     </Layout>
   )
 }
+
+export const query = graphql`
+query MyQuery {
+  file(relativePath: {eq: "banner.png"}) {
+    childrenImageSharp {
+      gatsbyImageData(width: 200, placeholder: BLURRED, formats: PNG)
+    }
+  }
+}
+
+`
